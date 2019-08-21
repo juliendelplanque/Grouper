@@ -1,8 +1,8 @@
 Class {
 	#name : #GroupBuilder,
-	#superclass : #Object,
+	#superclass : #AbstractGroupBuilder,
 	#instVars : [
-		'groupingBlock'
+		'collectBlock'
 	],
 	#category : #Grouper
 }
@@ -14,17 +14,21 @@ GroupBuilder class >> groupingBlock: aBlockClosure [
 		yourself
 ]
 
-{ #category : #composing }
-GroupBuilder >> , aGroupBuilder [
-	"I am an alias for #composeWith: allowing to exploit the power of binary messages."
-	^ self composeWith: aGroupBuilder
-]
-
 { #category : #converting }
 GroupBuilder >> asCompositeGroupBuilder [
 	^ CompositeGroupBuilder new
 		groupingBlock: self groupingBlock;
 		yourself
+]
+
+{ #category : #accessing }
+GroupBuilder >> collectBlock [
+	^ collectBlock
+]
+
+{ #category : #accessing }
+GroupBuilder >> collectBlock: anObject [
+	collectBlock := anObject
 ]
 
 { #category : #composing }
@@ -36,20 +40,12 @@ GroupBuilder >> composeWith: aGroupBuilder [
 
 { #category : #grouping }
 GroupBuilder >> group: aCollection [
-	^ (aCollection groupedBy: self groupingBlock)
+	^ (aCollection groupedBy: self groupingBlock) collect: [ :collection |
+		collection collect: self collectBlock ]
 ]
 
-{ #category : #accessing }
-GroupBuilder >> groupingBlock [
-	^ groupingBlock
-]
-
-{ #category : #accessing }
-GroupBuilder >> groupingBlock: anObject [
-	groupingBlock := anObject
-]
-
-{ #category : #testing }
-GroupBuilder >> isComposite [
-	^ false
+{ #category : #initialization }
+GroupBuilder >> initialize [
+	super initialize.
+	self collectBlock: [ :object | object ]
 ]

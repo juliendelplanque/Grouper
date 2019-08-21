@@ -1,6 +1,6 @@
 Class {
 	#name : #CompositeGroupBuilder,
-	#superclass : #GroupBuilder,
+	#superclass : #AbstractGroupBuilder,
 	#instVars : [
 		'subGroupBuilder'
 	],
@@ -10,6 +10,16 @@ Class {
 { #category : #converting }
 CompositeGroupBuilder >> asCompositeGroupBuilder [
 	^ self
+]
+
+{ #category : #accessing }
+CompositeGroupBuilder >> collectBlock [
+	^ self subGroupBuilder collectBlock
+]
+
+{ #category : #accessing }
+CompositeGroupBuilder >> collectBlock: aBlock [
+	^ self subGroupBuilder collectBlock: aBlock
 ]
 
 { #category : #composing }
@@ -24,7 +34,7 @@ CompositeGroupBuilder >> composeWith: aGroupBuilder [
 
 { #category : #grouping }
 CompositeGroupBuilder >> group: aCollection [
-	^ (super group: aCollection) collect: [ :subCollection |
+	^ (aCollection groupedBy: self groupingBlock) collect: [ :subCollection |
 		self subGroupBuilder group: subCollection ]
 ]
 
