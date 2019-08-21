@@ -46,6 +46,19 @@ CompositeGroupBuilderTest >> testAsCompositeGroupBuilder [
 ]
 
 { #category : #test }
+CompositeGroupBuilderTest >> testComposeWith [
+	| firstComposition secondCompositon toComposeWith |
+	firstComposition := [ :x | x first ] grouper composeWith: [ :x | x second ] grouper.
+	
+	toComposeWith := [ :x | x third ] grouper.
+	secondCompositon := firstComposition composeWith: toComposeWith.
+	
+	self assert: firstComposition isComposite.
+	self assert: secondCompositon isComposite.
+	self assert: secondCompositon subGroupBuilder subGroupBuilder equals: toComposeWith.
+]
+
+{ #category : #test }
 CompositeGroupBuilderTest >> testGroup [
 	| grouper expectedDictionary |
 	grouper := [ :x | x first ] grouper , [ :x | x second ] grouper.
