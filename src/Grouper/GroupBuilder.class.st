@@ -14,12 +14,10 @@ GroupBuilder class >> groupingBlock: aBlockClosure [
 		yourself
 ]
 
-{ #category : #copying }
+{ #category : #composing }
 GroupBuilder >> , aGroupBuilder [
-	^ self asCompositeGroupBuilder
-		groupingBlock: self groupingBlock;
-		subGroupBuilder: aGroupBuilder
-		yourself
+	"I am an alias for #composeWith: allowing to exploit the power of binary messages."
+	^ self composeWith: aGroupBuilder
 ]
 
 { #category : #converting }
@@ -27,6 +25,13 @@ GroupBuilder >> asCompositeGroupBuilder [
 	^ CompositeGroupBuilder new
 		groupingBlock: self groupingBlock;
 		yourself
+]
+
+{ #category : #composing }
+GroupBuilder >> composeWith: aGroupBuilder [
+	^ self asCompositeGroupBuilder
+		groupingBlock: self groupingBlock;
+		subGroupBuilder: aGroupBuilder yourself
 ]
 
 { #category : #grouping }

@@ -7,20 +7,18 @@ Class {
 	#category : #Grouper
 }
 
-{ #category : #copying }
-CompositeGroupBuilder >> , aGroupBuilder [
-	| composite |
-	composite := self lastSubCompositeGroupBuilder subGroupBuilder asCompositeGroupBuilder.
-	self lastSubCompositeGroupBuilder
-		subGroupBuilder: composite.
-	
-	composite subGroupBuilder: aGroupBuilder.
-	
+{ #category : #converting }
+CompositeGroupBuilder >> asCompositeGroupBuilder [
 	^ self
 ]
 
-{ #category : #converting }
-CompositeGroupBuilder >> asCompositeGroupBuilder [
+{ #category : #composing }
+CompositeGroupBuilder >> composeWith: aGroupBuilder [
+	| composite |
+	composite := self lastSubCompositeGroupBuilder subGroupBuilder
+		asCompositeGroupBuilder.
+	self lastSubCompositeGroupBuilder subGroupBuilder: composite.
+	composite subGroupBuilder: aGroupBuilder.
 	^ self
 ]
 
