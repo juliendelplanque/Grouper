@@ -35,8 +35,16 @@ CompositeGroupBuilder >> isComposite [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 CompositeGroupBuilder >> lastSubCompositeGroupBuilder [
+	"Recursively go through the subGroupBuilders until finding the last composite one.
+	
+	In the example below,
+	
+	([ :x | x asString first ] grouper ,
+		[ :x | x asString second ] grouper , <-- This grouper is returned.
+			[ :x | x asString third ] grouper) lastSubCompositeGroupBuilder
+	"
 	self subGroupBuilder isComposite
 		ifFalse: [ ^ self ].
 		
