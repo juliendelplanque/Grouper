@@ -30,3 +30,8 @@ GroupBuilderTest >> testGroup [
 		assert: (grouper group:  #('animal' 'alphabet' 'demo' 'denial'))
 		equals: expectedDictionary
 ]
+
+{ #category : #test }
+GroupBuilderTest >> testIsComposite [
+	self deny: [ :x | x first ] grouper isComposite
+]

@@ -7,7 +7,7 @@ Class {
 	#category : #'Grouper-Tests'
 }
 
-{ #category : #tests }
+{ #category : #test }
 CompositeGroupBuilderTest >> test2LevelsGrouperWellBuilt [
 	| firstGrouper secondGrouper compositeGrouper |
 	firstGrouper := [ :x | x first ] grouper.
@@ -19,7 +19,7 @@ CompositeGroupBuilderTest >> test2LevelsGrouperWellBuilt [
 	self assert: compositeGrouper subGroupBuilder groupingBlock equals: secondGrouper groupingBlock.
 ]
 
-{ #category : #tests }
+{ #category : #test }
 CompositeGroupBuilderTest >> test3LevelsGrouperWellBuilt [
 	| firstGrouper secondGrouper thirdGrouper compositeGrouper |
 	firstGrouper := [ :x | x first ] grouper.
@@ -62,6 +62,11 @@ CompositeGroupBuilderTest >> testGroup [
 	self
 		assert: (grouper group:  #('animal' 'alphabet' 'demo' 'denial'))
 		equals: expectedDictionary
+]
+
+{ #category : #test }
+CompositeGroupBuilderTest >> testIsComposite [
+	self assert: ([ :x | x first ] grouper , [ :x | x second ] grouper) isComposite
 ]
 
 { #category : #test }
