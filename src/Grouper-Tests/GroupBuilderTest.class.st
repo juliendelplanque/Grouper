@@ -8,6 +8,16 @@ Class {
 }
 
 { #category : #test }
+GroupBuilderTest >> testAsCompositeGroupBuilder [
+	| grouper composite |
+	grouper := GroupBuilder groupingBlock: [ :x | x first ].
+	composite := grouper asCompositeGroupBuilder.
+	
+	self assert: composite groupingBlock equals: grouper groupingBlock.
+	self assert: composite subGroupBuilder isNil
+]
+
+{ #category : #test }
 GroupBuilderTest >> testGroup [
 	| grouper expectedDictionary |
 	grouper := GroupBuilder groupingBlock: [ :x | x first ].

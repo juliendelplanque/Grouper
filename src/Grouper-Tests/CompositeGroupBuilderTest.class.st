@@ -34,6 +34,18 @@ CompositeGroupBuilderTest >> test3LevelsGrouperWellBuilt [
 ]
 
 { #category : #test }
+CompositeGroupBuilderTest >> testAsCompositeGroupBuilder [
+	| firstGrouper secondGrouper thirdGrouper compositeGrouper |
+	firstGrouper := [ :x | x first ] grouper.
+	secondGrouper :=  [ :x | x second ] grouper.
+	thirdGrouper :=  [ :x | x third ] grouper.
+	
+	compositeGrouper := firstGrouper , secondGrouper , thirdGrouper.
+	
+	self assert: compositeGrouper asCompositeGroupBuilder equals: compositeGrouper
+]
+
+{ #category : #test }
 CompositeGroupBuilderTest >> testGroup [
 	| grouper expectedDictionary |
 	grouper := [ :x | x first ] grouper , [ :x | x second ] grouper.
@@ -50,4 +62,17 @@ CompositeGroupBuilderTest >> testGroup [
 	self
 		assert: (grouper group:  #('animal' 'alphabet' 'demo' 'denial'))
 		equals: expectedDictionary
+]
+
+{ #category : #test }
+CompositeGroupBuilderTest >> testLastSubCompositeGroupBuilder [
+	| firstGrouper secondGrouper thirdGrouper compositeGrouper |
+	firstGrouper := [ :x | x first ] grouper.
+	secondGrouper :=  [ :x | x second ] grouper.
+	thirdGrouper :=  [ :x | x third ] grouper.
+	
+	compositeGrouper := firstGrouper , secondGrouper , thirdGrouper.
+	
+	self assert: compositeGrouper lastSubCompositeGroupBuilder equals: compositeGrouper subGroupBuilder.
+	self assert: compositeGrouper lastSubCompositeGroupBuilder groupingBlock equals: secondGrouper groupingBlock
 ]
