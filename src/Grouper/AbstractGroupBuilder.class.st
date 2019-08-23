@@ -37,3 +37,13 @@ AbstractGroupBuilder >> groupingBlock: anObject [
 AbstractGroupBuilder >> isComposite [
 	^ false
 ]
+
+{ #category : #accessing }
+AbstractGroupBuilder >> leafCollect [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+AbstractGroupBuilder >> leafCollect: aBlock [
+	^ self subclassResponsibility
+]

@@ -18,22 +18,6 @@ GroupBuilderTest >> testAsCompositeGroupBuilder [
 ]
 
 { #category : #test }
-GroupBuilderTest >> testCollectBlock [
-	| grouper expectedDictionary |
-	grouper := GroupBuilder groupingBlock: [ :x | x first ].
-	
-	grouper collectBlock: [ :str | str size ].
-	
-	expectedDictionary := { 
-		$a -> {'animal' size. 'alphabet' size}.
-		$d -> {'demo' size. 'denial' size } } asOrderedDictionary.
-	
-	self
-		assert: (grouper group:  #('animal' 'alphabet' 'demo' 'denial'))
-		equals: expectedDictionary
-]
-
-{ #category : #test }
 GroupBuilderTest >> testComposeWith [
 	| firstGrouper secondGrouper composition |
 	firstGrouper := [ :x | x first ] grouper.
@@ -65,4 +49,20 @@ GroupBuilderTest >> testGroup [
 { #category : #test }
 GroupBuilderTest >> testIsComposite [
 	self deny: [ :x | x first ] grouper isComposite
+]
+
+{ #category : #test }
+GroupBuilderTest >> testLeafCollect [
+	| grouper expectedDictionary |
+	grouper := GroupBuilder groupingBlock: [ :x | x first ].
+	
+	grouper leafCollect: [ :str | str size ].
+	
+	expectedDictionary := { 
+		$a -> {'animal' size. 'alphabet' size}.
+		$d -> {'demo' size. 'denial' size } } asOrderedDictionary.
+	
+	self
+		assert: (grouper group:  #('animal' 'alphabet' 'demo' 'denial'))
+		equals: expectedDictionary
 ]

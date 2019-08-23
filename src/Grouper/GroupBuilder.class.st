@@ -2,7 +2,7 @@ Class {
 	#name : #GroupBuilder,
 	#superclass : #AbstractGroupBuilder,
 	#instVars : [
-		'collectBlock'
+		'leafCollect'
 	],
 	#category : #Grouper
 }
@@ -21,16 +21,6 @@ GroupBuilder >> asCompositeGroupBuilder [
 		yourself
 ]
 
-{ #category : #accessing }
-GroupBuilder >> collectBlock [
-	^ collectBlock
-]
-
-{ #category : #accessing }
-GroupBuilder >> collectBlock: anObject [
-	collectBlock := anObject
-]
-
 { #category : #composing }
 GroupBuilder >> composeWith: aGroupBuilder [
 	^ self asCompositeGroupBuilder
@@ -41,11 +31,21 @@ GroupBuilder >> composeWith: aGroupBuilder [
 { #category : #grouping }
 GroupBuilder >> group: aCollection [
 	^ (aCollection groupedBy: self groupingBlock) collect: [ :collection |
-		collection collect: self collectBlock ]
+		collection collect: self leafCollect ]
 ]
 
 { #category : #initialization }
 GroupBuilder >> initialize [
 	super initialize.
-	self collectBlock: [ :object | object ]
+	self leafCollect: [ :object | object ]
+]
+
+{ #category : #accessing }
+GroupBuilder >> leafCollect [
+	^ leafCollect
+]
+
+{ #category : #accessing }
+GroupBuilder >> leafCollect: anObject [
+	leafCollect := anObject
 ]

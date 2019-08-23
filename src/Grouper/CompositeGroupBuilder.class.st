@@ -12,16 +12,6 @@ CompositeGroupBuilder >> asCompositeGroupBuilder [
 	^ self
 ]
 
-{ #category : #accessing }
-CompositeGroupBuilder >> collectBlock [
-	^ self subGroupBuilder collectBlock
-]
-
-{ #category : #accessing }
-CompositeGroupBuilder >> collectBlock: aBlock [
-	^ self subGroupBuilder collectBlock: aBlock
-]
-
 { #category : #composing }
 CompositeGroupBuilder >> composeWith: aGroupBuilder [
 	| composite |
@@ -57,6 +47,16 @@ CompositeGroupBuilder >> lastSubCompositeGroupBuilder [
 		ifFalse: [ ^ self ].
 		
 	^ self subGroupBuilder
+]
+
+{ #category : #accessing }
+CompositeGroupBuilder >> leafCollect [
+	^ self subGroupBuilder leafCollect
+]
+
+{ #category : #accessing }
+CompositeGroupBuilder >> leafCollect: aBlock [
+	^ self subGroupBuilder leafCollect: aBlock
 ]
 
 { #category : #accessing }
