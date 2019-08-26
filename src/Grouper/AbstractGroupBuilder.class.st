@@ -27,6 +27,12 @@ AbstractGroupBuilder >> group: aCollection [
 	^ self subclassResponsibility
 ]
 
+{ #category : #converting }
+AbstractGroupBuilder >> grouper [
+	"To be polymorphic with BlockClosure."
+	^ self
+]
+
 { #category : #accessing }
 AbstractGroupBuilder >> groupingBlock [
 	^ groupingBlock

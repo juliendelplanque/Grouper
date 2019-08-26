@@ -42,7 +42,8 @@ GroupBuilder >> asRootGroupBuilder [
 GroupBuilder >> composeWith: aGroupBuilder [
 	^ self asRootGroupBuilder
 		groupingBlock: self groupingBlock;
-		subGroupBuilder: aGroupBuilder yourself
+		subGroupBuilder: aGroupBuilder grouper;
+		yourself
 ]
 
 { #category : #grouping }

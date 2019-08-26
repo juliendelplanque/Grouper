@@ -23,7 +23,7 @@ CompositeGroupBuilder >> composeWith: aGroupBuilder [
 	composite := self lastSubCompositeGroupBuilder subGroupBuilder
 		asCompositeGroupBuilder.
 	self lastSubCompositeGroupBuilder subGroupBuilder: composite.
-	composite subGroupBuilder: aGroupBuilder.
+	composite subGroupBuilder: aGroupBuilder grouper.
 	^ self
 ]
 
