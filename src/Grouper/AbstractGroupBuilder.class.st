@@ -2,7 +2,8 @@ Class {
 	#name : #AbstractGroupBuilder,
 	#superclass : #Object,
 	#instVars : [
-		'groupingBlock'
+		'groupingBlock',
+		'nodeCollect'
 	],
 	#category : #Grouper
 }
@@ -33,8 +34,19 @@ AbstractGroupBuilder >> groupingBlock: anObject [
 	groupingBlock := anObject
 ]
 
+{ #category : #initialization }
+AbstractGroupBuilder >> initialize [
+	super initialize.
+	self nodeCollect: [ :dictionary | dictionary ]
+]
+
 { #category : #testing }
 AbstractGroupBuilder >> isComposite [
+	^ false
+]
+
+{ #category : #testing }
+AbstractGroupBuilder >> isRoot [
 	^ false
 ]
 
@@ -46,4 +58,14 @@ AbstractGroupBuilder >> leafCollect [
 { #category : #accessing }
 AbstractGroupBuilder >> leafCollect: aBlock [
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+AbstractGroupBuilder >> nodeCollect [
+	^ nodeCollect
+]
+
+{ #category : #accessing }
+AbstractGroupBuilder >> nodeCollect: anObject [
+	nodeCollect := anObject
 ]

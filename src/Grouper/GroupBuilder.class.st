@@ -14,6 +14,11 @@ GroupBuilder class >> groupingBlock: aBlockClosure [
 		yourself
 ]
 
+{ #category : #testing }
+GroupBuilder class >> isTypeCheckingEnabled [
+	^ true
+]
+
 { #category : #converting }
 GroupBuilder >> asCompositeGroupBuilder [
 	^ CompositeGroupBuilder new
@@ -21,17 +26,27 @@ GroupBuilder >> asCompositeGroupBuilder [
 		yourself
 ]
 
+{ #category : #converting }
+GroupBuilder >> asRootGroupBuilder [
+	^ RootGroupBuilder new
+		groupingBlock: self groupingBlock;
+		yourself
+]
+
 { #category : #composing }
 GroupBuilder >> composeWith: aGroupBuilder [
-	^ self asCompositeGroupBuilder
+	^ self asRootGroupBuilder
 		groupingBlock: self groupingBlock;
 		subGroupBuilder: aGroupBuilder yourself
 ]
 
 { #category : #grouping }
 GroupBuilder >> group: aCollection [
-	^ (aCollection groupedBy: self groupingBlock) collect: [ :collection |
-		collection collect: self leafCollect ]
+	| dictionary |
+	dictionary := ((aCollection groupedBy: self groupingBlock) collect: [ :collection |
+		collection collect: self leafCollect ]).
+	
+	^ self nodeCollect value: dictionary
 ]
 
 { #category : #initialization }

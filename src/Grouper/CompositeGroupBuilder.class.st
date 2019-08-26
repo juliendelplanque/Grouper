@@ -24,8 +24,11 @@ CompositeGroupBuilder >> composeWith: aGroupBuilder [
 
 { #category : #grouping }
 CompositeGroupBuilder >> group: aCollection [
-	^ (aCollection groupedBy: self groupingBlock) collect: [ :subCollection |
-		self subGroupBuilder group: subCollection ]
+	| dictionary |
+	dictionary := (aCollection groupedBy: self groupingBlock) collect: [ :subCollection |
+		self subGroupBuilder group: subCollection ].
+	
+	^ self nodeCollect value: dictionary
 ]
 
 { #category : #testing }
@@ -60,11 +63,19 @@ CompositeGroupBuilder >> leafCollect: aBlock [
 ]
 
 { #category : #accessing }
+CompositeGroupBuilder >> nodeCollect: aBlock [
+	super nodeCollect: aBlock.
+	self subGroupBuilder ifNotNil: [ 
+		self subGroupBuilder nodeCollect: aBlock ]
+]
+
+{ #category : #accessing }
 CompositeGroupBuilder >> subGroupBuilder [
 	^ subGroupBuilder
 ]
 
 { #category : #accessing }
 CompositeGroupBuilder >> subGroupBuilder: anObject [
-	subGroupBuilder := anObject
+	subGroupBuilder := anObject.
+	"self subGroupBuilder nodeCollect: self nodeCollect"
 ]

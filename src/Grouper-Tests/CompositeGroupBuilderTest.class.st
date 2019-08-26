@@ -83,6 +83,13 @@ CompositeGroupBuilderTest >> testIsComposite [
 ]
 
 { #category : #test }
+CompositeGroupBuilderTest >> testIsRoot [
+	self assert: ([ :x | x first ] grouper , [ :x | x second ] grouper) isRoot.
+	self deny: ([ :x | x first ] grouper , [ :x | x second ] grouper) subGroupBuilder isRoot.
+	self deny: ([ :x | x first ] grouper , [ :x | x second ] grouper , [ :x | x third ] grouper) subGroupBuilder isRoot
+]
+
+{ #category : #test }
 CompositeGroupBuilderTest >> testLastSubCompositeGroupBuilder [
 	| firstGrouper secondGrouper thirdGrouper compositeGrouper |
 	firstGrouper := [ :x | x first ] grouper.
@@ -114,4 +121,45 @@ CompositeGroupBuilderTest >> testLeafCollect [
 	self
 		assert: (grouper group:  #('animal' 'alphabet' 'demo' 'denial'))
 		equals: expectedDictionary
+]
+
+{ #category : #test }
+CompositeGroupBuilderTest >> testNodeCollect [
+	| grouper expectedDictionary |
+	grouper := [ :x | x first ] grouper , [ :x | x second ] grouper.
+	
+	grouper nodeCollect: [ :dictionary | 
+		dictionary associations collect: [ :assoc |
+			GTreeNodeMock new
+				content: assoc key;
+				children: assoc value;
+				yourself ] ].
+	
+	expectedDictionary := { 
+		GTreeNodeMock new
+			content: $a;
+			children: { 
+			GTreeNodeMock new
+				content: $n;
+				children: {'animal'};
+				yourself.
+			GTreeNodeMock new
+				content: $l;
+				children: {'alphabet'};
+				yourself.
+			};
+			yourself.
+		GTreeNodeMock new
+			content: $d;
+			children: {
+			GTreeNodeMock new
+				content: $e;
+				children: {'demo'. 'denial'};
+				yourself.
+			};
+			yourself  }.
+	
+	self
+		assert: (grouper group:  #('animal' 'alphabet' 'demo' 'denial'))
+		equals: expectedDictionary 
 ]

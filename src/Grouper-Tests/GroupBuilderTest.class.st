@@ -13,6 +13,18 @@ GroupBuilderTest >> testAsCompositeGroupBuilder [
 	grouper := GroupBuilder groupingBlock: [ :x | x first ].
 	composite := grouper asCompositeGroupBuilder.
 	
+	self assert: composite class equals: CompositeGroupBuilder.
+	self assert: composite groupingBlock equals: grouper groupingBlock.
+	self assert: composite subGroupBuilder isNil
+]
+
+{ #category : #test }
+GroupBuilderTest >> testAsRootGroupBuilder [
+	| grouper composite |
+	grouper := GroupBuilder groupingBlock: [ :x | x first ].
+	composite := grouper asRootGroupBuilder.
+	
+	self assert: composite class equals: RootGroupBuilder.
 	self assert: composite groupingBlock equals: grouper groupingBlock.
 	self assert: composite subGroupBuilder isNil
 ]
