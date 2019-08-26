@@ -41,8 +41,8 @@ is equivalent to the following code snippet using built-in `#groupedBy:` method:
   $5->#(50))"
 ```
 
-The power of Grouper is that group description are first-class object.
-Thus, it is possible to compose group descriptions in order to group on multiple levels.
+The power of Grouper is that group description are first-class objects.
+Thus, it is possible to compose group descriptions in order to group a flat collection on multiple levels.
 
 For example:
 
