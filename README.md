@@ -60,3 +60,60 @@ groupComposition := [ :integer | integer asString first ] grouper , [ :integer |
     $0->#(40) $1->#(41) $2->#(42) $3->#(43) $4->#(44) $5->#(45) $6->#(46) $7->#(47) $8->#(48) $9->#(49))
   $5->an OrderedDictionary($0->#(50)))"
 ```
+
+### Building a tree
+In fact, Grouper builds a tree. By default, it uses dictionaries for its nodes and the initial object in the collection for its leaves.
+
+Grouper provides the ability to customize the kind of objects the tree is built of.
+This is achived via `#leafCollect:`, `#nodeCollect:` and `#wrapRoot:`.
+
+#### `#leafCollect:`
+`#leafCollect:` allows one to customize the objects that will appear as leaves in the tree.
+It is used as follow:
+
+```Smalltalk
+grouper := [ :integer | integer asString first ] grouper , [ :integer | integer asString second ] grouper.
+
+grouper leafCollect: [ :result | GTreeLeafMock new content: result; yourself ]. 
+
+(10 to: 15) groupUsing: groupComposition.
+"an OrderedDictionary(
+  $1->an OrderedDictionary(
+    $0->an Array(a GTreeLeafMock)
+    $1->an Array(a GTreeLeafMock)
+    $2->an Array(a GTreeLeafMock)
+    $3->an Array(a GTreeLeafMock)
+    $4->an Array(a GTreeLeafMock)
+    $5->an Array(a GTreeLeafMock)))"
+```
+
+#### `#nodeCollect:`
+`#nodeCollect:` allows one to customize the objects that will appear as nodes in the tree.
+It is used as follow:
+
+```Smalltalk
+groupComposition := [ :integer | integer asString first ] grouper , [ :integer | integer asString second ] grouper.
+
+groupComposition nodeCollect: [ :dictionary |
+	dictionary associations collect: [ :association |
+		GTreeNodeMock new
+			content: association key;
+			children: association value
+			yourself ] ]. 
+
+(10 to: 15) groupUsing: groupComposition.
+"an Array(a GTreeNodeMock)"
+```
+
+#### `#rootWrap:`
+`#rootWrap:` allows one to customize the object used to wrap the tree at its root.
+It is used as follow:
+
+```Smalltalk
+groupComposition := [ :integer | integer asString first ] grouper , [ :integer | integer asString second ] grouper.
+	
+groupComposition rootWrap: [ :array | GTreeRoot new children: array; yourself ].
+
+(10 to: 15) groupUsing: groupComposition.
+ "a GTreeRoot"
+```
