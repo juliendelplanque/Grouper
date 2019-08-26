@@ -1,3 +1,8 @@
+"
+I am a group builder that has a subgroup builder.
+
+The resulting structure will be built top to bottom.
+"
 Class {
 	#name : #CompositeGroupBuilder,
 	#superclass : #AbstractGroupBuilder,

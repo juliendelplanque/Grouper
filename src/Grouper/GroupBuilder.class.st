@@ -1,3 +1,8 @@
+"
+I model a group builder as first-class object.
+
+The terminal group builder of a composition of builder is always of my kind.
+"
 Class {
 	#name : #GroupBuilder,
 	#superclass : #AbstractGroupBuilder,

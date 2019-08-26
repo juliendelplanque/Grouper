@@ -1,3 +1,6 @@
+"
+I am an abstract group builder defining the API for the other groups builders.
+"
 Class {
 	#name : #AbstractGroupBuilder,
 	#superclass : #Object,

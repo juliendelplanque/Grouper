@@ -1,3 +1,6 @@
+"
+I am a special composite group builder that is the root of the group builder composition.
+"
 Class {
 	#name : #RootGroupBuilder,
 	#superclass : #CompositeGroupBuilder,
