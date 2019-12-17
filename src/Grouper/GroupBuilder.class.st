@@ -19,11 +19,6 @@ GroupBuilder class >> groupingBlock: aBlockClosure [
 		yourself
 ]
 
-{ #category : #testing }
-GroupBuilder class >> isTypeCheckingEnabled [
-	^ true
-]
-
 { #category : #converting }
 GroupBuilder >> asCompositeGroupBuilder [
 	^ CompositeGroupBuilder new
