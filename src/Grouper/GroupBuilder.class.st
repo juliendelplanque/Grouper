@@ -12,7 +12,7 @@ Class {
 	#category : #Grouper
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 GroupBuilder class >> groupingBlock: aBlockClosure [ 
 	^ self new
 		groupingBlock: aBlockClosure;
